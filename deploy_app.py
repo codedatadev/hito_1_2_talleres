@@ -26,20 +26,21 @@ with open('preprocesador.pkl', 'rb') as f:
 def classify(pred):
     return 'Posible enfermedad cardíaca' if pred == 1 else 'No tiene enfermedad cardíaca'
 
-# Parámetros desde la interfaz
+# Sidebar para parámetros del usuario
 def user_input_parameters():
+    st.sidebar.header("Datos del Usuario")
     user_input = {
-        'Gender': st.selectbox('Género', ['Female', 'Male']),
-        'Smoking': st.selectbox('Fuma', ['Current', 'Former', 'Never']),
-        'Alcohol Intake': st.selectbox('Consumo de Alcohol', ['Heavy', 'Moderate', 'None']),
-        'Family History': st.selectbox('Antecedentes Familiares', ['Yes', 'No']),
-        'Chest Pain Type': st.selectbox('Tipo de Dolor en el Pecho', ['Asymptomatic', 'Atypical Angina', 'Non-anginal Pain', 'Typical Angina']),
-        'Age': st.slider('Edad', 20, 120, 50),
-        'Cholesterol': st.slider('Colesterol (mg/dL)', 60, 500, 200),
-        'Blood Pressure': st.slider('Presión Arterial (mmHg)', 70, 300, 120),
-        'Heart Rate': st.slider('Frecuencia Cardíaca (bpm)', 40, 200, 80),
-        'Stress Level': st.slider('Nivel de Estrés (1 a 10)', 1, 10, 5),
-        'Blood Sugar': st.slider('Azúcar en Sangre (mg/dL)', 50, 300, 100)
+        'Gender': st.sidebar.selectbox('Género', ['Female', 'Male']),
+        'Smoking': st.sidebar.selectbox('Fuma', ['Current', 'Former', 'Never']),
+        'Alcohol Intake': st.sidebar.selectbox('Consumo de Alcohol', ['Heavy', 'Moderate', 'None']),
+        'Family History': st.sidebar.selectbox('Antecedentes Familiares', ['Yes', 'No']),
+        'Chest Pain Type': st.sidebar.selectbox('Tipo de Dolor en el Pecho', ['Asymptomatic', 'Atypical Angina', 'Non-anginal Pain', 'Typical Angina']),
+        'Age': st.sidebar.slider('Edad', 20, 120, 50),
+        'Cholesterol': st.sidebar.slider('Colesterol (mg/dL)', 60, 500, 200),
+        'Blood Pressure': st.sidebar.slider('Presión Arterial (mmHg)', 70, 300, 120),
+        'Heart Rate': st.sidebar.slider('Frecuencia Cardíaca (bpm)', 40, 200, 80),
+        'Stress Level': st.sidebar.slider('Nivel de Estrés (1 a 10)', 1, 10, 5),
+        'Blood Sugar': st.sidebar.slider('Azúcar en Sangre (mg/dL)', 50, 300, 100)
     }
     return pd.DataFrame([user_input])
 
@@ -51,10 +52,13 @@ def main():
 
     st.markdown("""
     Esta herramienta utiliza modelos de Machine Learning para predecir si una persona podría tener
-    una enfermedad cardíaca, basándose en distintos parámetros médicos. Ingrese los datos a continuación:
+    una enfermedad cardíaca, basándose en distintos parámetros médicos. Ingrese los datos a continuación en la barra lateral:
     """)
 
     df_usuario = user_input_parameters()
+
+    st.subheader("Datos ingresados:")
+    st.dataframe(df_usuario, use_container_width=True)
 
     modelo_seleccionado = st.selectbox(
         'Selecciona el modelo de predicción',
@@ -76,7 +80,7 @@ def main():
             resultado = knn_model.predict(datos_procesados)
 
         pred = classify(resultado[0])
-        st.subheader('Resultado:')
+        st.subheader("Resultado de la predicción:")
         st.write(pred)
 
 if __name__ == '__main__':
