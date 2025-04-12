@@ -80,8 +80,7 @@ def main():
             resultado = knn_model.predict(datos_procesados)
 
         pred = classify(resultado[0])
-        st.subheader("Resultado de la predicción:")
-        st.write(pred)
+        st.success(pred)
 
 if __name__ == '__main__':
     main()
