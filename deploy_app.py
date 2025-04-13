@@ -48,7 +48,7 @@ def user_input_parameters():
 def main():
     st.set_page_config(page_title="Predicción Cardíaca", layout="centered")
 
-    st.title("Predicción de Enfermedad Cardíaca")
+    st.title("Predicción de Enfermedad Cardíaca Grupo 1 Talleres")
 
     st.markdown("""
     Esta herramienta utiliza modelos de Machine Learning para predecir si una persona podría tener
